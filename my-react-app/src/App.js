@@ -1,0 +1,60 @@
+import React from 'react';
+import './App.css';
+import axios from 'axios';
+import UserCard from './components/UserCard';
+
+class App extends React.Component {
+  constructor() {
+    super()
+    this.state = {
+     user: {},
+     following: []
+    }
+
+    axios
+    .get(`https://api.github.com/users/HeathDanni`)
+    .then(res => {
+      this.setState({user: res.data})
+      console.log(res.data)
+    })
+    .catch(err => {
+      console.log('err:', err)
+    });
+
+    }
+
+
+    componentDidMount() {
+      axios
+        .get(`https://api.github.com/users/HeathDanni/following`)
+        .then(res => {
+          console.log('res:', res.data)
+          this.setState({following: res.data})
+        })
+        .catch(err => {
+          console.log('err:', err)
+        })
+
+  }
+
+
+  render() {
+    return(
+      <div>
+        <h1>Github Users</h1>
+        <div className="flex-container">
+          <UserCard user={this.state.user}/>
+            {this.state.following.map((user) => {
+              return (
+                <UserCard user={user} key={user.id}/>
+              )
+            })}
+        </div>
+      </div>
+  
+    )
+  
+}
+}
+
+export default App;
