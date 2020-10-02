@@ -37,24 +37,18 @@ class App extends React.Component {
 
   }
 
-    // componentDidUpdate(prevState, prevProps) {
-    //   // if statements here equivalent to useEffect dependency array
-    //   if (prevState.doggos !== this.state.doggos) {
-    //     console.log("doggos have changed!");
-    //   }
-
 
   render() {
     return(
       <div>
-        <h1>my application</h1>
-        <UserCard user={this.state.user}/>
-        <div>
-          {this.state.following.map((user) => {
-            return (
-              <UserCard user={user}/>
-            )
-          })}
+        <h1>Github Users</h1>
+        <div className="flex-container">
+          <UserCard user={this.state.user}/>
+            {this.state.following.map((user) => {
+              return (
+                <UserCard user={user} key={user.id}/>
+              )
+            })}
         </div>
       </div>
   
