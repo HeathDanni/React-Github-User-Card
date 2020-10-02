@@ -8,7 +8,7 @@ class App extends React.Component {
     super()
     this.state = {
      user: {},
-     following: []
+     followers: []
     }
 
     axios
@@ -26,10 +26,10 @@ class App extends React.Component {
 
     componentDidMount() {
       axios
-        .get(`https://api.github.com/users/HeathDanni/following`)
+        .get(`https://api.github.com/users/HeathDanni/followers`)
         .then(res => {
           console.log('res:', res.data)
-          this.setState({following: res.data})
+          this.setState({followers: res.data})
         })
         .catch(err => {
           console.log('err:', err)
@@ -44,7 +44,7 @@ class App extends React.Component {
         <h1>Github Users</h1>
         <div className="flex-container">
           <UserCard user={this.state.user}/>
-            {this.state.following.map((user) => {
+            {this.state.followers.map((user) => {
               return (
                 <UserCard user={user} key={user.id}/>
               )
